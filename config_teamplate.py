@@ -1,0 +1,1 @@
+apikey= "Introduce aquí tu API key de CoinAPI.io"
