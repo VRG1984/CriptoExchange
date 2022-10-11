@@ -1,0 +1,1 @@
+from cripto_ex import app
