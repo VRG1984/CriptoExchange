@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myCRIPTO - {{ pageTitle }}</title>
+    <link rel="stylesheet" href="/static/css/pico.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+<body>
+    <header>
+        <div>
+            &nbsp; myCRIPTO
+        </div>
+    </header>
+    <nav class="container">
+        <ul>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/purchase">Compra</a></li>
+            <li><a href="/status">Compra</a></li>
+        </ul>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <footer>     
+        &nbsp; &copy; 2022 - VRG, todos los derechos reservados
+    </footer>
+</body>
+</html>
