@@ -14,16 +14,30 @@
     </header>
     <nav class="container">
         <ul>
-            <li><a href="/">Inicio</a></li>
-            <li><a href="/purchase">Compra</a></li>
-            <li><a href="/status">Compra</a></li>
+            {% if 'index' in pageNow %}
+                <li>Inicio</li>
+            {% else %}
+                <li><a href="/">Inicio</a></li>
+            {% endif %}
+
+            {% if 'purchase' in pageNow %}
+                <li>Compra</li>
+            {% else %}
+                <li><a href="/purchase">Compra</a></li>
+            {% endif %}
+
+            {% if 'status' in pageNow %}
+                <li>Status</li>
+            {% else %}
+                <li><a href="/status">Status</a></li>
+            {% endif %}       
         </ul>
     </nav>
 
     {% block content %}{% endblock %}
 
     <footer>     
-        &nbsp; &copy; 2022 - VRG, todos los derechos reservados
+        &nbsp; &copy; 2022 - VRG, copy-and-paste orientation programming
     </footer>
 </body>
 </html>
