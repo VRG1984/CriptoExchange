@@ -3,3 +3,9 @@ header, footer {
     color: var(--primary-inverse);
     font-size: 1.4em;
     font-weight: bold;
+}
+
+p.error {
+    font-weight: bold;
+    color: red;
+}

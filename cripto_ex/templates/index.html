@@ -2,30 +2,40 @@
 
 {% block content %}
 
-<h1 class="container" align="center">MOVIMIENTOS</h1>
+{% if data|length > 0 %}
 
-<table class="container">
+        <h1 class="container" align="center">MOVIMIENTOS</h1>
 
-    <th>Fecha</th>
-    <th>Hora</th>
-    <th>Moneda gastada</th>
-    <th>Cantidad gastada</th>
-    <th>Moneda comprada</th>
-    <th>Cantidad comprada</th>
-    <th>P.U</th>
+        <table class="container">
 
-    {% for movement in data %}
-        <tr>
-            <td>{{ movement.date }}</td>
-            <td>{{ movement.time }}</td>
-            <td>{{ movement.moneda_from }}</td>
-            <td>{{ movement.cantidad_from }}</td>
-            <td>{{ movement.moneda_to }}</td>
-            <td>{{ movement.cantidad_to }}</td>
-            <td>{{ movement.PU }}</td>
-        </tr>
-    {% endfor %}
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Moneda gastada</th>
+            <th>Cantidad gastada</th>
+            <th>Moneda comprada</th>
+            <th>Cantidad comprada</th>
+            <th>P.U</th>
+        
+        {% for movement in data %}
+            
+            <tr>
+                <td>{{ movement.date }}</td>
+                <td>{{ movement.time }}</td>
+                <td>{{ movement.moneda_from }}</td>
+                <td>{{ movement.cantidad_from }}</td>
+                <td>{{ movement.moneda_to }}</td>
+                <td>{{ movement.cantidad_to }}</td>
+                <td>{{ movement.PU }}</td>
+            </tr>
 
-</table>
+        </table>
+
+        {% endfor %}
+
+{% else %}
+    
+    <h1 class="container" align="center">SIN MOVIMIENTOS</h1>
+
+{% endif %}
 
 {% endblock %}

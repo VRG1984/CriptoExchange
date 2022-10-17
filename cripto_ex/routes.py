@@ -1,12 +1,19 @@
+import sqlite3
 from cripto_ex import app
 from cripto_ex.models import select_all
-from flask import render_template
+from flask import render_template, flash
 
 @app.route("/")
 def index():
-        pageNow = "index"
-        registros = select_all()
-        return render_template("index.html", pageTitle="Inicio", pageNow=pageNow, data=registros)
+        try:
+                pageNow = "index"
+                registros = select_all()
+                return render_template("index.html", pageTitle="Inicio", pageNow=pageNow, data=registros)
+        except sqlite3.Error as e:
+                flash ("Se ha producido un error en la base de datos, contacte con el administrador")
+                print(e)
+                pageNow = "index"
+                return render_template("index.html", pageTitle="Inicio", pageNow=pageNow, data=[])
 
 @app.route("/purchase")
 def purchase():
