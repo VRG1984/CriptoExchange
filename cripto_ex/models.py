@@ -1,5 +1,6 @@
 import sqlite3
-from config import ORIGIN_DATA
+from config import ORIGIN_DATA, apikey
+import requests
 
 def select_all():
     conn = sqlite3.connect(ORIGIN_DATA)
@@ -22,3 +23,18 @@ def select_all():
     conn.close()
     
     return resultado
+
+def calc_result(mfrom, mto, qnty):
+    
+    r = requests.get("https://rest.coinapi.io/v1/exchangerate/{}/{}?apikey={}".format(mfrom, mto, apikey))
+    dict_rate = r.json()
+
+    rate = dict_rate["rate"]
+
+    calc = rate * qnty
+
+    return calc
+
+# Lo que tiene que viajar es el diccionario
+
+    

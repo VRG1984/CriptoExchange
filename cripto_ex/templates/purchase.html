@@ -2,7 +2,35 @@
 
 {% block content %}
 
-<h1 class="container" align="center">AQUÍ IRÁN LAS COMPRAS</h1>
+<h1 class="container" align="center">COMPRA DE CRIPTOS</h1>
+<form action="/purchase" class="container" method="post">
+    {{ formulario.csrf_token }}
+
+    {{ formulario.moneda_from.label }}
+    {{ formulario.moneda_from }}
+
+    {{ formulario.moneda_to.label }}
+    {{ formulario.moneda_to }}
+
+    {{ formulario.quantity_from.label }}
+    {{ formulario.quantity_from }}
+    {% if formulario.quantity_from.errors %}
+        {% for error in formulario.quantity_from.errors %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+    {% endif %}
+
+    {{ formulario.calc }}
+    <br>
+    <label>Cantidad TO: {{ cantidad_to}} </label>
+    <br>
+
+    <br>
+    <label>P.U: {{ cantidad_to}} </label>
+    <br>
+    {{ formulario.submit}}
+
+</form>
 
 
 {% endblock %}
