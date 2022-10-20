@@ -3,7 +3,7 @@
 {% block content %}
 
 <h1 class="container" align="center">COMPRA DE CRIPTOS</h1>
-<form action="/purchase" class="container" method="post">
+<form action="/purchase" name="calc" class="container" method="post">
     {{ formulario.csrf_token }}
 
     {{ formulario.moneda_from.label }}
@@ -26,7 +26,7 @@
     <br>
 
     <br>
-    <label>P.U: {{ cantidad_to}} </label>
+    <label>P.U: {{ pu }} </label>
     <br>
     {{ formulario.submit}}
 
