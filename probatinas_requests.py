@@ -3,7 +3,7 @@ from config import apikey
 
 r = requests.get("https://rest.coinapi.io/v1/exchangerate/{}?apikey={}".format("EUR", apikey))
 
-monedas = ["BTC", "ETH", "BNB"]
+monedas = ["BTC", "ETH", "BNB", "ADA", "DOT", "BTC", "USDT", "XRP", "SOL", "MATIC"]
 
 resultados = r.json()
 rates_now= []

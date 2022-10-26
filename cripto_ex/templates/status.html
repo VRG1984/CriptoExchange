@@ -2,7 +2,30 @@
 
 {% block content %}
 
-<h1 class="container" align="center">AQUÍ IRÁ EL STATUS</h1>
+<h1 class="container" align="center">ESTADO DE LA INVERSIÓN</h1>
 
+<table class="container">
+
+<tr>
+    <th>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Invertido: {{ euros_inv }}</th>
+</tr>
+<tr>    
+    <th>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Recuperado: {{ euros_rec }}</th>
+</tr>
+<tr>   
+    <th>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Valor de compra: {{ valor_compra }}</th>
+</tr>
+<tr>   
+    <th>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Valor actual: {{ valor_actual }}</th>
+</tr>
+
+    
+</table>
+
+<form>
+<a href="/">
+    <input type="button" value="Volver">
+</a>
+</form>
 
 {% endblock %}
