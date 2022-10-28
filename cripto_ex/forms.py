@@ -14,4 +14,3 @@ class CriptoForm(FlaskForm):
     calc = SubmitField("CALC")
     
     submit = SubmitField("✓")
-    

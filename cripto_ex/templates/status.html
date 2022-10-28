@@ -4,6 +4,12 @@
 
 <h1 class="container" align="center">ESTADO DE LA INVERSIÓN</h1>
 
+    {% if ganancia > 0 %} 
+        <p class="gana" align="center"> La ganancia es {{ ganancia }}</p>
+    {% elif ganancia < 0 %} 
+        <p class="pierde" align="center"> La pérdida es {{ ganancia }}</p>
+    {% endif %}
+
 <table class="container">
 
 <tr>

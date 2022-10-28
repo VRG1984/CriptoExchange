@@ -78,8 +78,11 @@ def validate_moneda_to(form, field):
         raise ValidationError("Debes volver a recalcular la transacción")
 
 def validate_quantity_from(form, field):
+    # meter validación por si intentan calzar texto
     if field.data != float(form.hidden_quantity_from.data):
         raise ValidationError("Debes volver a recalcular la transacción")
+
+
 #result = cur.execute("SELECT (SELECT sum (cantidad_from) FROM movements WHERE moneda_from = 'EUR' AS eur_inv;")
 
 def eur_inv():

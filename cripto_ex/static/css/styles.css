@@ -9,3 +9,20 @@ p.error {
     font-weight: bold;
     color: red;
 }
+
+.gana {
+    color: green;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.pierde {
+    color: red;
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.cantidad_pu {
+    font-size: 1.2em;
+    font-weight: bold;
+}
