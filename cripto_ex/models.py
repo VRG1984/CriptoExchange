@@ -1,6 +1,5 @@
 import sqlite3
-from tkinter import N
-from config import CONSULTA_MONEDERO, ORIGIN_DATA, apikey
+from config import CONSULTA_MONEDERO, CONSULTA_MOVIMIENTOS, ORIGIN_DATA, apikey, REGISTRA_COMPRA, EUROS_FROM, EUROS_TO
 import requests, datetime
 from wtforms.validators import ValidationError
 
@@ -8,10 +7,10 @@ def select_all():
     conn = sqlite3.connect(ORIGIN_DATA)
     cur = conn.cursor()
 
-    result = cur.execute("SELECT id, date, time, moneda_from, cantidad_from, moneda_to, cantidad_to, (SELECT ROUND (cantidad_from / cantidad_to, 8)) as PU from movements order by date;")
+    result = cur.execute(CONSULTA_MOVIMIENTOS)
 
-    filas = result.fetchall() # lista de tuplas
-    columnas = result.description #tupla de tuplas, description es un atributo del cursor
+    filas = result.fetchall() 
+    columnas = result.description
 
     resultado = []
     for fila in filas:
@@ -31,13 +30,11 @@ def calc_result(mfrom, mto):
     r = requests.get("https://rest.coinapi.io/v1/exchangerate/{}/{}?apikey={}".format(mfrom, mto, apikey))
     return r.json()
 
-# Lo que tiene que viajar es el diccionario
-
 def disp_moneda_from(mfrom):
     conn = sqlite3.connect(ORIGIN_DATA)
     cur = conn.cursor()
 
-    result = cur.execute("SELECT (SELECT sum (cantidad_to) FROM movements WHERE moneda_to = '{}') - (SELECT sum (cantidad_from) FROM movements WHERE moneda_from = '{}') AS disp;".format(mfrom, mfrom))
+    result = cur.execute("SELECT (SELECT ifnull(sum(cantidad_to),0) FROM movements WHERE moneda_to = '{}') - (SELECT ifnull(sum(cantidad_from),0) FROM movements WHERE moneda_from = '{}') AS disp;".format(mfrom, mfrom))
     disp = result.fetchone()
 
     conn.close()
@@ -46,7 +43,6 @@ def disp_moneda_from(mfrom):
         return 0
     else:
         return disp[0]
-
 
 def purchase_coin(mfrom, qfrom, mto, qto):
 
@@ -57,17 +53,13 @@ def purchase_coin(mfrom, qfrom, mto, qto):
     conn =sqlite3.connect(ORIGIN_DATA)
     cur = conn.cursor()
 
-    sql = ("INSERT INTO movements (date, time, moneda_from, cantidad_from, moneda_to, cantidad_to) values (?, ?, ?, ?, ?, ?)")
+    sql = (REGISTRA_COMPRA)
     val = (date, time, mfrom, qfrom, mto, qto)
 
     cur.execute(sql, val)
 
     conn.commit()
     conn.close()
-
-
-    
-    # Si tienes más disp que el PU (rate), te dejo realizar la transacción y la grabo
 
 def validate_moneda_from(form, field):
     if field.data != form.hidden_moneda_from.data:
@@ -82,14 +74,11 @@ def validate_quantity_from(form, field):
     if field.data != float(form.hidden_quantity_from.data):
         raise ValidationError("Debes volver a recalcular la transacción")
 
-
-#result = cur.execute("SELECT (SELECT sum (cantidad_from) FROM movements WHERE moneda_from = 'EUR' AS eur_inv;")
-
 def eur_inv():
     conn = sqlite3.connect(ORIGIN_DATA)
     cur = conn.cursor()
 
-    result = cur.execute("SELECT (SELECT sum (cantidad_from) FROM movements WHERE moneda_from = 'EUR') AS eur_inv;")
+    result = cur.execute(EUROS_FROM)
     eur_inv = result.fetchone()
 
     conn.close()
@@ -103,7 +92,7 @@ def eur_rec():
     conn = sqlite3.connect(ORIGIN_DATA)
     cur = conn.cursor()
 
-    result = cur.execute("SELECT (SELECT sum (cantidad_to) FROM movements WHERE moneda_to = 'EUR') AS eur_rec;")
+    result = cur.execute(EUROS_TO)
     eur_rec = result.fetchone()
 
     conn.close()
@@ -119,8 +108,8 @@ def valor_act():
 
     result = cur.execute(CONSULTA_MONEDERO)
 
-    filas = result.fetchone() # lista de tuplas
-    columnas = result.description #tupla de tuplas, description es un atributo del cursor
+    filas = result.fetchone()
+    columnas = result.description
 
     monedero = []
 
@@ -135,7 +124,6 @@ def valor_act():
     
     return monedero
     
-
 def get_rates():
     r = requests.get("https://rest.coinapi.io/v1/exchangerate/{}?apikey={}".format("EUR", apikey))
 
