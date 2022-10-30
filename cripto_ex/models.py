@@ -63,16 +63,16 @@ def purchase_coin(mfrom, qfrom, mto, qto):
 
 def validate_moneda_from(form, field):
     if field.data != form.hidden_moneda_from.data:
-        raise ValidationError("Debes volver a recalcular la transacción")
+        raise ValidationError("Debes calcular la transacción")
 
 def validate_moneda_to(form, field):
     if field.data != form.hidden_moneda_to.data:
-        raise ValidationError("Debes volver a recalcular la transacción")
+        raise ValidationError("Debes calcular la transacción")
 
 def validate_quantity_from(form, field):
     # meter validación por si intentan calzar texto
-    if field.data != float(form.hidden_quantity_from.data):
-        raise ValidationError("Debes volver a recalcular la transacción")
+    if form.hidden_quantity_from.data != "" and field.data != float(form.hidden_quantity_from.data):
+        raise ValidationError("Debes calcular la transacción")
 
 def eur_inv():
     conn = sqlite3.connect(ORIGIN_DATA)

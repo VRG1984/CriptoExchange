@@ -51,16 +51,7 @@ def purchase():
                                 flash("La moneda from y la moneda to no pueden ser la misma")
                                 return render_template("purchase.html", pageTitle="Purchase", pageNow=pageNow, formulario = form)
                 
-                elif request.values.get("submit"):
-                        try:
-                                form.validate()
-                        
-                        except Exception as e:
-                                flash("Debes pulsar primero el botón 'CALC' para calcular el precio y poder realizar la operación")
-                                print(e)
-                                pageNow = "purchase"
-                                return render_template("purchase.html", pageTitle="Purchase", pageNow=pageNow, formulario = form)
-                
+                elif request.values.get("submit") and form.validate():
                         if form.moneda_from.data != "EUR":
                                 try:
                                         disp_m = disp_moneda_from(form.moneda_from.data)
@@ -106,8 +97,10 @@ def purchase():
                                         print(e)
                                         pageNow = "purchase"
                                         return render_template("purchase.html", pageTitle="Purchase", pageNow=pageNow, formulario = form)
-               
+                
                 else:
+                        flash("Debes calcular la transacción pulsando el botón 'CALC'")
+                        pageNow = "purchase"
                         return render_template("purchase.html", pageTitle="Purchase", pageNow=pageNow, formulario = form)
 
 @app.route("/status")
