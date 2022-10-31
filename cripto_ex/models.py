@@ -143,6 +143,6 @@ def valor_cartera():
     rates_now = get_rates()
     monedero = valor_act()
 
-    valor_cartera = rates_now[0]['ADA'] * monedero[6]['ada'] + rates_now[1]['BNB'] * monedero[4]['bnb'] + rates_now[2]['BTC'] * monedero[1]['btc'] + rates_now[3]['DOT'] * monedero[8]['dot'] + rates_now[4]['ETH'] * monedero[2]['eth'] + rates_now[5]['MATIC'] * monedero[9]['matic'] + rates_now[6]['SOL'] * monedero[7]['sol'] + rates_now[7]['USDT'] * monedero[3]['usdt'] + rates_now[8]['XRP'] * monedero[5]['xrp']
+    valor_cartera = (1/rates_now[0]['ADA']) * monedero[6]['ada'] + (1/rates_now[1]['BNB']) * monedero[4]['bnb'] + (1/rates_now[2]['BTC']) * monedero[1]['btc'] + (1/rates_now[3]['DOT']) * monedero[8]['dot'] + (1/rates_now[4]['ETH']) * monedero[2]['eth'] + (1/rates_now[5]['MATIC']) * monedero[9]['matic'] + (1/rates_now[6]['SOL']) * monedero[7]['sol'] + (1/rates_now[7]['USDT']) * monedero[3]['usdt'] + (1/rates_now[8]['XRP']) * monedero[5]['xrp']
 
     return valor_cartera
